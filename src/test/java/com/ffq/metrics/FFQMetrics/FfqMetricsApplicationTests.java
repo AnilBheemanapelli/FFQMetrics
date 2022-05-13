@@ -10,4 +10,5 @@ class FfqMetricsApplicationTests {
 	void contextLoads() {
 	}
 
+
 }
