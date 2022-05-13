@@ -1,0 +1,329 @@
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import java.io.*;
+
+public class FormPage extends JFrame{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static JPanel contentPane;
+	private JTextField FromDateAndTime;
+	private JTextField ToDateAndTime;
+	//private JTextField LOB;
+	//private JTextField State;
+	private JButton exportExcel;
+	
+	public static void main(String args[]){
+		//EventQueue.invokeLater(new Runnable(){
+				try{
+					
+					FormPage frame=new FormPage();
+					frame.setSize(800,500);
+					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//frame.setBounds(450,190,1014,597);
+					frame.setResizable(false);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+	public FormPage(){
+	contentPane=new JPanel();
+	contentPane.setBorder(new EmptyBorder(5,5,5,5));
+	setContentPane(contentPane);
+	contentPane.setLayout(null);
+	
+	JLabel ffqMetrics=new JLabel("FFQ Metrics");
+	ffqMetrics.setFont(new Font("Times New Roman",Font.PLAIN,30));
+	ffqMetrics.setBounds(292,12,325,50);
+	contentPane.add(ffqMetrics);
+	
+	JLabel fromDate=new JLabel("Form Date and Time");
+	fromDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	fromDate.setBounds(28,99,199,33);
+	contentPane.add(fromDate);
+	
+	/*JLabel toDate=new JLabel("To Date and Time");
+	toDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	toDate.setBounds(58,102,199,43);
+	contentPane.add(toDate);*/
+	
+	JLabel lob=new JLabel("LOB");
+	lob.setFont(new Font("Tahoma",Font.PLAIN,15));
+	lob.setBounds(28,152,199,29);
+	contentPane.add(lob);
+	
+	JLabel state=new JLabel("State");
+	state.setFont(new Font("Tahoma",Font.PLAIN,15));
+	state.setBounds(28,202,199,29);
+	contentPane.add(state);
+	
+	FromDateAndTime=new JTextField();
+	FromDateAndTime.setFont(new Font("Tahoma",Font.PLAIN,24));
+	FromDateAndTime.setBounds(180,98,199,36);
+	contentPane.add(FromDateAndTime);
+	FromDateAndTime.setColumns(10);
+	
+	/*LOB=new JTextField();
+	LOB.setFont(new Font("Tahoma",Font.PLAIN,24));
+	LOB.setBounds(180,148,199,36);
+	contentPane.add(LOB);
+	LOB.setColumns(10);
+	
+	*/
+	
+	
+	String[] petStrings1 = { "Farmers Auto", "Bristol West", "Renter", "Home","Condo","Commercial/Business","Life","HQM","All Lob" };
+	JComboBox LOB = new JComboBox(petStrings1);
+	LOB.setSelectedIndex(8);
+	LOB.setFont(new Font("Tahoma",Font.PLAIN,24));
+	LOB.setBounds(180,148,199,36);
+	contentPane.add(LOB);
+	
+	String[] petStrings = { "PLA States", "GWPC States", "EE(KY & MS)States", "All States" };
+	//Create the combo box, select item at index 4.
+	//Indices start at 0, so 4 specifies the pig.
+	JComboBox State = new JComboBox(petStrings);
+	State.setSelectedIndex(3);
+	//State.addActionListener(this);
+	//State=new JComboBox();
+	State.setFont(new Font("Tahoma",Font.PLAIN,24));
+	State.setBounds(180,198,199,36);
+	contentPane.add(State);
+	
+	
+	//second column 
+	
+	JLabel toDate=new JLabel("To Date and Time");
+	toDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	toDate.setBounds(408,99,199,33);
+	contentPane.add(toDate);
+	
+	ToDateAndTime=new JTextField();
+	ToDateAndTime.setFont(new Font("Tahoma",Font.PLAIN,24));
+	ToDateAndTime.setBounds(552,98,199,36);
+	contentPane.add(ToDateAndTime);
+	ToDateAndTime.setColumns(10);
+	
+	//Button
+	
+	//Test
+	
+	String a1= " and ((lower(email) not like 'autobindoptout%' and lower(email) not like '%neoby%' and lower(email) not like '%copeland%'";
+	String a2 =" and lower(email) not like '%autobind%'";
+	String a3=" and lower(email) not like '%mel.wong%'";
+	String a4=" and lower(email) not like '%asdf%'";
+	String a5=" and lower(email) not like '%test%'";
+	String a6=" and lower(email) not like '%suman.reddy%'";
+	String a7=" and lower(email) not like '%paul.hoogveld%' ) OR email is null)";
+	String BWcond=" and (AUTO_PREMIUM_AMT > 0.0)and AUTO_COMPANY_CODE = 'B' with ur";
+	String AutoCond ="and (AUTO_PREMIUM_AMT > 0.0)";
+	String HomeCond ="and (HOME_PREMIUM_AMT > 0.0)";
+	String LifeCond="and (LIFE_PREMIUM_AMT > 0 OR GDB_PREMIUM_AMT > 0 OR STL_PREMIUM_AMT > 0 OR SWL_PREMIUM_AMT > 0 OR PWL_PREMIUM_AMT >0)";
+	String b1=" and line_of_bus_cd = 'A'";
+    String b2=" and lower(a.customer_email) not like '%testin%'";
+	String b3=" and lower(a.customer_email) not like '%copeland%'";
+	String b4=" and lower(a.customer_email) not like '%optout%'";
+    String b5=" and lower(a.customer_email) <> 'ffq.testing@yahoo.com'";
+    String b6=" and lower(a.customer_email) <> 'abc123@gmail.com'";
+    String bwb1="and line_of_bus_cd = 'A' and b.AUTO_COMPANY_CODE = 'B'";
+    String r1=" and a.LINE_OF_BUS_CD IN ('R','F')";
+    String r2=" AND (A.REMARK_CD = 'FO')";
+    String r4=" AND (A.REMARK_CD = 'FF')";
+    String r3=" and b.LOB LIKE '%R%'";
+    String h1=" and b.LOB LIKE '%H%'";
+    String AutoLob= "%A%";
+    
+  
+	
+    String sqlPart1 = " select count(*) FROM TQUOTE where lob like '"+AutoLob+"' and QUOTE_INIT_TMSTMP between " ;
+    
+    
+	//Test part
+	exportExcel =new JButton("Export Excel");
+	exportExcel.addActionListener(new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			String FromDate=FromDateAndTime.getText();
+			String ToDate=ToDateAndTime.getText();
+			String GetState=State.getActionCommand();
+			
+			try {
+				Class.forName("com.ibm.db2.jcc.DB2Driver");
+				Connection con = DriverManager.getConnection("jdbc:db2://LAAPDB18:50018/FFQ3PRD", "ffq3prd","ffq3prd$");
+				Statement myst=con.createStatement();
+				String finalQuery1 = sqlPart1 + "'" + FromDate + "'" + " and '" + ToDate  +"'"+a1+a2+a3+a4+a5+a6+a7+AutoCond;
+				String cust1=null;
+				
+		        ResultSet myrs1=myst.executeQuery(finalQuery1);	        
+				while (myrs1.next())
+				 {
+					 cust1=myrs1.getString(1);
+					 System.out.println("Auto Quote Completed : "+cust1);
+				 }
+				
+				String AutoCompleted= cust1;
+				
+				
+				
+				//Preparing excel sheet
+				
+				HSSFWorkbook workbook=new HSSFWorkbook();
+				HSSFSheet spreadsheet = workbook.createSheet("EMV FFQ Quote Count");
+				spreadsheet.setColumnWidth(1, 3000);
+				spreadsheet.setColumnWidth(2, 5000);
+				spreadsheet.setColumnWidth(3, 5000);
+				spreadsheet.setColumnWidth(4, 6000);
+				spreadsheet.setColumnWidth(5, 5000);
+				spreadsheet.setColumnWidth(6, 6000);
+				spreadsheet.setColumnWidth(7, 6000);
+			      
+				HSSFRow row=spreadsheet.createRow((short)1);
+			    HSSFCell cell;
+			      //font $ color
+			        CellStyle style = workbook.createCellStyle();
+				    style.setFillForegroundColor(IndexedColors.SKY_BLUE.getIndex());
+				    style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+				    style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+				    style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+				    style.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+				    style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+				    style.setWrapText(true);
+			         
+				    HSSFFont font = workbook.createFont();
+			        font.setColor(IndexedColors.BLACK.getIndex());
+			        style.setFont(font);
+			          
+					    
+					    
+					    
+					    CellStyle style4 = workbook.createCellStyle();
+					    //style3.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+					    //style3.setFillPattern(CellStyle.SOLID_FOREGROUND);
+					    style4.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+					    style4.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+					    style4.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+					    style4.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+					    style4.setWrapText(true);
+					    //Font font1 = workbook.createFont();
+				            //font1.setColor(IndexedColors.GREEN.getIndex());
+				            
+				            //tyle.setFont(font);
+
+
+			      cell=row.createCell(1);
+			      cell.setCellValue("LOB");
+			      cell.setCellStyle(style);
+
+			      cell=row.createCell(2);
+			      cell.setCellValue("Quotes Started");
+			      cell.setCellStyle(style);
+			      
+			      cell=row.createCell(3);
+			      cell.setCellValue("Quotes Completed");
+			      cell.setCellStyle(style);
+			      
+			      cell=row.createCell(4);
+			      cell.setCellValue("Knocked out Quotes(IID)");
+			      cell.setCellStyle(style);
+			      
+			      cell=row.createCell(5);
+			      cell.setCellValue("Knocked out Quotes");
+			      cell.setCellStyle(style);
+			      
+			      cell=row.createCell(6);
+			      cell.setCellValue("Policy purchased - Online Bind");
+			      cell.setCellStyle(style);
+			      
+			      cell=row.createCell(7);
+			      cell.setCellValue("Policy purchased - Offline Bind");
+			      cell.setCellStyle(style);
+			      
+			      HSSFRow row1=spreadsheet.createRow((short)2);
+			      cell=row1.createCell(1);
+			      cell.setCellValue("Auto");
+			      cell.setCellStyle(style4);
+			      cell=row1.createCell(2);
+			      cell.setCellValue("will be filled");
+			      cell.setCellStyle(style4);
+			      cell=row1.createCell(3);
+			      cell.setCellValue(AutoCompleted);
+			      cell.setCellStyle(style4);
+			      cell=row1.createCell(4);
+			      cell.setCellValue("will be filled");
+			      cell.setCellStyle(style4);
+			      cell=row1.createCell(5);
+			      cell.setCellValue("will be filled");
+			      cell.setCellStyle(style4);
+			      cell=row1.createCell(6);
+			      cell.setCellValue("will be filled");
+			      cell.setCellStyle(style4);
+			      cell=row1.createCell(7);
+			      cell.setCellValue("will be filled");
+			      cell.setCellStyle(style4);
+			      
+			      FileOutputStream out = new FileOutputStream(
+			      new File("\\\\hm2ntfs05\\FACT\\BismayCapgemini\\FFQ_Metrics_Test\\EMV_FFQ_Quote_Count_.xls"));
+			      workbook.write(out);
+			      out.close();
+			      System.out.println ("Excel written successfully ");
+				
+			
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			
+		}
+	
+	});
+	exportExcel.setFont(new Font("Tahoma",Font.PLAIN,24));
+	exportExcel.setBounds(299,307,199,74);
+	contentPane.add(exportExcel);
+	
+	
+	
+	
+	}
+}	
+	
+
+
+	
+	
+	
+

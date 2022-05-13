@@ -1,0 +1,118 @@
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+
+public class FormPage extends JFrame{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static JPanel contentPane;
+	private JTextField FromDateAndTime;
+	private JTextField ToDateAndTime;
+	private JTextField LOB;
+	private JTextField State;
+	private JButton exportExcel;
+	
+	public static void main(String args[]){
+		//EventQueue.invokeLater(new Runnable(){
+				try{
+					
+					FormPage frame=new FormPage();
+					frame.setSize(800,500);
+					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//frame.setBounds(450,190,1014,597);
+					frame.setResizable(false);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+	public FormPage(){
+	contentPane=new JPanel();
+	contentPane.setBorder(new EmptyBorder(5,5,5,5));
+	setContentPane(contentPane);
+	contentPane.setLayout(null);
+	
+	JLabel ffqMetrics=new JLabel("FFQ Metrics");
+	ffqMetrics.setFont(new Font("Times New Roman",Font.PLAIN,30));
+	ffqMetrics.setBounds(292,12,325,50);
+	contentPane.add(ffqMetrics);
+	
+	JLabel fromDate=new JLabel("Form Date and Time");
+	fromDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	fromDate.setBounds(28,99,199,33);
+	contentPane.add(fromDate);
+	
+	/*JLabel toDate=new JLabel("To Date and Time");
+	toDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	toDate.setBounds(58,102,199,43);
+	contentPane.add(toDate);*/
+	
+	JLabel lob=new JLabel("LOB");
+	lob.setFont(new Font("Tahoma",Font.PLAIN,15));
+	lob.setBounds(28,152,199,29);
+	contentPane.add(lob);
+	
+	JLabel state=new JLabel("State");
+	state.setFont(new Font("Tahoma",Font.PLAIN,15));
+	state.setBounds(28,202,199,29);
+	contentPane.add(state);
+	
+	FromDateAndTime=new JTextField();
+	FromDateAndTime.setFont(new Font("Tahoma",Font.PLAIN,24));
+	FromDateAndTime.setBounds(180,98,199,36);
+	contentPane.add(FromDateAndTime);
+	FromDateAndTime.setColumns(10);
+	
+	LOB=new JTextField();
+	LOB.setFont(new Font("Tahoma",Font.PLAIN,24));
+	LOB.setBounds(180,148,199,36);
+	contentPane.add(LOB);
+	LOB.setColumns(10);
+	
+	State=new JTextField();
+	State.setFont(new Font("Tahoma",Font.PLAIN,24));
+	State.setBounds(180,198,199,36);
+	contentPane.add(State);
+	State.setColumns(10);
+	
+	//second column 
+	
+	JLabel toDate=new JLabel("To Date and Time");
+	toDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	toDate.setBounds(408,99,199,33);
+	contentPane.add(toDate);
+	
+	ToDateAndTime=new JTextField();
+	ToDateAndTime.setFont(new Font("Tahoma",Font.PLAIN,24));
+	ToDateAndTime.setBounds(552,98,199,36);
+	contentPane.add(ToDateAndTime);
+	ToDateAndTime.setColumns(10);
+	
+	//Button
+	exportExcel =new JButton("Export Excel");
+	/*exportExcel.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			String.FromDateAndTime=FromDateAndTime.getText();
+		}
+	}); */
+	
+	exportExcel.setFont(new Font("Tahoma",Font.PLAIN,24));
+	exportExcel.setBounds(399,447,259,74);
+	contentPane.add(exportExcel);
+	
+	}
+	}
+	
+	
+

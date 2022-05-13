@@ -1,0 +1,9 @@
+127.0.0.1 - - [22/Dec/2020:12:04:38 +0530] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [22/Dec/2020:12:04:39 +0530] "GET /FFQ_Web_Metrics/WEB-INF/classes/com/FarmersInc/FFQMetrics/MetricsMain.java HTTP/1.1" 404 949
+127.0.0.1 - - [22/Dec/2020:12:17:58 +0530] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [22/Dec/2020:12:17:58 +0530] "GET /FFQ_Web_Metrics/WEB-INF/MetricsForm.html HTTP/1.1" 404 949
+127.0.0.1 - - [22/Dec/2020:12:18:10 +0530] "GET /FFQ_Web_Metrics/WEB-INF/MetricsForm.html HTTP/1.1" 404 949
+127.0.0.1 - - [22/Dec/2020:12:20:47 +0530] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [22/Dec/2020:12:20:47 +0530] "GET /FFQ_Web_Metrics/WEB-INF/MetricsForm.html HTTP/1.1" 404 949
+127.0.0.1 - - [22/Dec/2020:12:22:59 +0530] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [22/Dec/2020:12:31:12 +0530] "GET /FFQ_Web_Metrics/MetricsForm.html HTTP/1.1" 404 1015

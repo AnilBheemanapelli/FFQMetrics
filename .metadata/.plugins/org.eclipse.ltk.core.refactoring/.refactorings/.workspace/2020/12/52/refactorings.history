@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;FFQ Metrics Web Automation&apos;" deleteContents="false" description="Delete resource &apos;FFQ Metrics Web Automation&apos;" element1="/FFQ Metrics Web Automation" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1608617713720"/>&#x0A;<refactoring comment="Delete resource &apos;FFQ Web Metrics/src/com&apos;" deleteContents="false" description="Delete resource &apos;FFQ Web Metrics/src/com&apos;" element1="/FFQ Web Metrics/src/com" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1608620636728"/>
+</session>

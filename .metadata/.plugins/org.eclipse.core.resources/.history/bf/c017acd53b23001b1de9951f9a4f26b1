@@ -1,0 +1,72 @@
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+
+public class FormPage extends JFrame{
+	
+	private static JPanel contentPane;
+	private JTextField FromDateAndTime;
+	private JTextField ToDateAndTime;
+	private JTextField LOB;
+	private JTextField State;
+	private JButton exportExcel;
+	
+	public static void main(String args[]){
+		//EventQueue.invokeLater(new Runnable(){
+				try{
+					
+					FormPage frame=new FormPage();
+					frame.setSize(800,500);
+					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//frame.setBounds(450,190,1014,597);
+					frame.setResizable(false);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+	public FormPage(){
+	contentPane=new JPanel();
+	contentPane.setBorder(new EmptyBorder(5,5,5,5));
+	setContentPane(contentPane);
+	contentPane.setLayout(null);
+	
+	JLabel ffqMetrics=new JLabel("FFQ Metrics");
+	ffqMetrics.setFont(new Font("Times New Roman",Font.PLAIN,30));
+	ffqMetrics.setBounds(292,12,325,50);
+	contentPane.add(ffqMetrics);
+	
+	JLabel fromDate=new JLabel("Form Date and Time");
+	fromDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	fromDate.setBounds(58,102,199,33);
+	contentPane.add(fromDate);
+	
+	/*JLabel toDate=new JLabel("To Date and Time");
+	toDate.setFont(new Font("Tahoma",Font.PLAIN,15));
+	toDate.setBounds(58,102,199,43);
+	contentPane.add(toDate);*/
+	
+	JLabel lob=new JLabel("LOB");
+	lob.setFont(new Font("Tahoma",Font.PLAIN,15));
+	lob.setBounds(58,152,199,29);
+	contentPane.add(lob);
+	
+	JLabel state=new JLabel("State");
+	state.setFont(new Font("Tahoma",Font.PLAIN,15));
+	state.setBounds(58,202,199,29);
+	contentPane.add(state);
+	
+	FromDateAndTime=new JTextField();
+	FromDateAndTime.setFont(new Font("Tahoma",Font.PLAIN,24));
+	FromDateAndTime.setBounds(214,98,199,36);
+	contentPane.add(FromDateAndTime);
+	FromDateAndTime.setColumns(10);
+	}
+	}
+	
+	
+
